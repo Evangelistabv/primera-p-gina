@@ -69,7 +69,13 @@ ROOT_URLCONF = 'MiTienda.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'MiTiendaApp/Templates'],
+        'DIRS': [
+		BASE_DIR / 'MiTiendaApp/Templates',
+		BASE_DIR / 'ServiciosApp/Templates',
+		BASE_DIR / 'BlogApp/Templates',
+		BASE_DIR / 'ContactoApp/Templates',
+		BASE_DIR / 'TiendaApp/Templates'
+		],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
