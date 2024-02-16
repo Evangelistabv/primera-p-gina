@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'djangocms_admin_style',    
     'djangocms_text_ckeditor',
-    'MiTiendaApp',
+    'MiTiendaApp.apps.MitiendappConfig',
     'ServiciosApp',
     'BlogApp',
     'ContactoApp',
