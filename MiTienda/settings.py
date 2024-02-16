@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'menus',
     'cms',
+    'treebeard',
     'crispy_forms',
     'crispy_bootstrap4',
     'djangocms_admin_style',    
