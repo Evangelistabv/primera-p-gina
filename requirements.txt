@@ -1,4 +1,4 @@
 Django
 django-crispy-forms
 crispy-bootstrap4
-
+djangocms_admin_style
