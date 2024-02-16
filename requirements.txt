@@ -5,5 +5,5 @@ djangocms_admin_style
 djangocms_text_ckeditor
 menus
 cms
-treebeard==4.5.1
+treebeard
 
