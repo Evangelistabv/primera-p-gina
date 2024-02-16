@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'menus',
+    'cms',
     'crispy_forms',
     'crispy_bootstrap4',
     'djangocms_admin_style',    
