@@ -6,4 +6,4 @@ djangocms_text_ckeditor
 menus
 cms
 gunicorn
-
+whitenoise
