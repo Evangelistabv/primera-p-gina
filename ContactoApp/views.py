@@ -18,6 +18,7 @@ def contacto(request):
 				email.send()
 
 				return redirect("/contacto/?valido")
-			except:
+			except SMTPException as e:
+        			error_message = str(e)
 				return redirect("/contacto/?novalido")
-	return render(request,"Contacto/contacto.html",{'miformulario':formulario})
+	return render(request,"Contacto/contacto.html",{'miformulario':formulario,'error_message': error_message})
