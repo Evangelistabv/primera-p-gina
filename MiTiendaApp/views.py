@@ -51,4 +51,4 @@ def logear(request):
             messages.error(request, "información incorrecta")
 
     form=AuthenticationForm()
-    return render(request,"User/login.html",{"form":form})
+    return render(request,"User/Login.html",{"form":form})
