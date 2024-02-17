@@ -3,7 +3,7 @@ from BlogApp.models import Post,Categoria
 # Create your views here.
 def blog(request):
 	posts=Post.objects.all()
-	return render(request,"blog/blog.html",{"posts":posts})
+	return render(request,"Blog/blog.html",{"posts":posts})
 
 def categoria(request,categoria_id):
 	#categoria=Categorias.object.filter(id=categoria_id)
