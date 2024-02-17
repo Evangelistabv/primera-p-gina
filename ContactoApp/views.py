@@ -15,11 +15,10 @@ def contacto(request):
 				'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
 				['danielluffy10@gmail.com'])
 			try:
-		                email_message.send()
+		        	email_message.send()
 		                return redirect("/contacto/?valido")
 		        except SMTPException as e:
 		                # Captura el error y guárdalo en el contexto para pasarlo a la plantilla
 		                error_message = str(e)
-		                return render(request, "Contacto/contacto.html", 
-					      {'miformulario': formulario, 'error_message': error_message})
+		                return render(request, "Contacto/contacto.html",{'miformulario': formulario, 'error_message': error_message})
 	return render(request,"Contacto/contacto.html",{'miformulario':formulario})
