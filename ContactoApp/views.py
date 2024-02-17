@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from ContactoApp.forms import Formulariocontacto
 from django.core.mail import EmailMessage
+from smtplib import SMTPException
+from .forms import Formulariocontacto
 # Create your views here.
 def contacto(request):
 	formulario=Formulariocontacto()
