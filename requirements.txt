@@ -7,3 +7,4 @@ menus
 cms
 gunicorn
 whitenoise
+python-decouple
