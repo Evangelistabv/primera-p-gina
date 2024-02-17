@@ -4,7 +4,7 @@ from TiendaApp.Carro.carro import Carro
 # Create your views here.
 def tienda(request):
 	productos=Producto.objects.all()
-	return render(request,"tienda/tienda.html",{"productos":productos})
+	return render(request,"Tienda/tienda.html",{"productos":productos})
 
 def agregar(request,producto_id):
 	carro=Carro(request)
