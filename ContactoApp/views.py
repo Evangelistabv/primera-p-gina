@@ -18,7 +18,6 @@ def contacto(request):
 				email.send()
 
 				return redirect("/contacto/?valido")
-			except Exception as e:
-    				print(f"Error al enviar correo: {e}")
+			except:
 				return redirect("/contacto/?novalido")
 	return render(request,"Contacto/contacto.html",{'miformulario':formulario})
