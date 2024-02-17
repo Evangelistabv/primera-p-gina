@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 # Obtener las variables de entorno
 SECRET_KEY =  os.environ.get('SECRET_KEY')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER','danielluffy10@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD','xmquqcjutjrylyog')
 
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
