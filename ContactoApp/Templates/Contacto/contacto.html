@@ -6,9 +6,10 @@
 	{% if 'valido' in request.GET %}
 		<p style="color: white;">Informacion completada correctamente</p>
 	{%endif %}
-	{% if 'novalido' in request.GET %}
-		<p style="color: white;">Informacion incompleta</p>
-	{%endif %}
+	 
+	{% if error_message %}
+        <p style="color: red;">Error al enviar correo: {{ error_message }}</p>
+    	{% endif %}
 	
 	<form action="" method="POST" style="text-align: center;">
 		{%csrf_token%}
