@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from ContactoApp.forms import Formulariocontacto
-from django.core.mail import EmailMessage,BadHeaderError, send_mail
+from django.core.mail import EmailMessage,BadHeaderError,send_mail
 from .forms import Formulariocontacto
 
 # Create your views here.
@@ -14,8 +14,8 @@ def contacto(request):
 			contenido=request.POST.get("contenido")
 
 			#email=EmailMessage('Mensaje desde App Django',
-				'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
-				['danielluffy10@gmail.com'])
+				#'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
+				#['danielluffy10@gmail.com'])
 			try:
 		            send_mail('Mensaje desde App Django',
 				'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
