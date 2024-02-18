@@ -13,19 +13,13 @@ def contacto(request):
 			email=request.POST.get("email")
 			contenido=request.POST.get("contenido")
 
-			#email=EmailMessage('Mensaje desde App Django',
-				#'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
-				#['danielluffy10@gmail.com'])
-			try:
-		            send_mail('Mensaje desde App Django',
+			email=EmailMessage('Mensaje desde App Django',
 				'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
 				['danielluffy10@gmail.com'])
-		        except:
-		            return redirect("/contacto/?novalido")
-			#try:
-			#	email.send()
-			#	return redirect("/contacto/?valido")
-				
-			#except:
-		         #       return redirect("/contacto/?novalido")
+			try:
+				send_mail('Mensaje desde App Django',
+				'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
+				['danielluffy10@gmail.com'])
+			except:
+		               return redirect("/contacto/?novalido")
 	return render(request,"Contacto/contacto.html",{'miformulario':formulario})
