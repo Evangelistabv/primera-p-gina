@@ -2,7 +2,6 @@
 {% load static %}
 {% block content%}
 <div>
-<h2 style="color: white;">Correo de contacto: {{ email_contacto }}</h2>
 	{% if 'valido' in request.GET %}
 		<p style="color: white;">Informacion completada correctamente</p>
 	{%endif %}
