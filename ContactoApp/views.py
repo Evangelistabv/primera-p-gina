@@ -2,10 +2,11 @@ from django.shortcuts import render,redirect
 from ContactoApp.forms import Formulariocontacto
 from django.core.mail import EmailMessage,BadHeaderError,send_mail
 from .forms import Formulariocontacto
-
+import os
 # Create your views here.
 def contacto(request):
 	formulario=Formulariocontacto()
+	emailContacto = os.environ.get('EMAIL_HOST_USER')
 	if request.method=='POST':
 		formulario=Formulariocontacto(data=request.POST)
 		if formulario.is_valid():
@@ -22,4 +23,4 @@ def contacto(request):
 				['danielluffy10@gmail.com'])
 			except:
 		               return redirect("/contacto/?novalido")
-	return render(request,"Contacto/contacto.html",{'miformulario':formulario})
+	return render(request,"Contacto/contacto.html",{'miformulario':formulario,'email_contacto':emailContacto})
