@@ -6,7 +6,6 @@ import os
 # Create your views here.
 def contacto(request):
 	formulario=Formulariocontacto()
-	emailContacto = os.environ.get('EMAIL_HOST_USER')
 	if request.method=='POST':
 		formulario=Formulariocontacto(data=request.POST)
 		if formulario.is_valid():
@@ -22,5 +21,6 @@ def contacto(request):
 				'El usuario {} con direccion {} escribe: \n\n {}'.format(nombre,email,contenido),'',
 				['danielluffy10@gmail.com'])
 			except:
-		               return redirect("/contacto/?novalido")
-	return render(request,"Contacto/contacto.html",{'miformulario':formulario,'email_contacto':emailContacto})
+				error = str(e)
+                		return redirect("/contacto/?error={}".format(error))
+	return render(request,"Contacto/contacto.html",{'miformulario':formulario)
