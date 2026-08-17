@@ -1,19 +1,37 @@
 {% extends 'Base.html' %}
-{% load static %}
-{% block content%}
-<div>
-	{% if 'valido' in request.GET %}
-		<p style="color: white;">Informacion completada correctamente</p>
-	{%endif %}
-	 
-	{% if 'novalido' in request.GET %}
-		<p style="color: white;">Error al enviar</p>
-	{%endif %}
-	
-	<form action="" method="POST" style="text-align: center;">
-		{%csrf_token%}
-		<table style="color:white; margin: 20px auto;">{{miformulario.as_table}}</table>
-		<input type="submit" value="Enviar" style="width:150px;">
-	</form>
-</div>
+{% block title %}Contacto | Gestión de Pedidos{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-heading">
+      <span class="eyebrow">CONTACTO</span>
+      <h1>Cuéntanos qué necesitas</h1>
+      <p>Completa el formulario y envía tu mensaje desde una experiencia más simple y ordenada.</p>
+    </div>
+  </div>
+</section>
+<section class="form-shell">
+  <div class="container">
+    <div class="contact-card">
+      <div class="contact-grid">
+        <aside class="contact-aside">
+          <span class="eyebrow eyebrow-light">HABLEMOS</span>
+          <h2>Una conversación puede resolverlo más rápido.</h2>
+          <p>Déjanos tus datos y explica brevemente tu consulta. El formulario conserva la misma lógica del sitio, con una presentación renovada.</p>
+          <div class="contact-point"><span>01</span><div><strong>Escribe tu mensaje</strong><p class="mb-0">Incluye la información necesaria para entender tu solicitud.</p></div></div>
+          <div class="contact-point"><span>02</span><div><strong>Revisa tus datos</strong><p class="mb-0">Confirma tu nombre y correo antes de enviarlo.</p></div></div>
+        </aside>
+        <div class="contact-form-wrap">
+          {% if request.GET.valido %}<div class="alert alert-success">Tu mensaje se envió correctamente.</div>{% endif %}
+          {% if request.GET.novalido %}<div class="alert alert-error">No se pudo enviar el mensaje. Revisa los datos e inténtalo de nuevo.</div>{% endif %}
+          <form action="" method="POST" class="contact-form" novalidate>
+            {% csrf_token %}
+            {{ miformulario.as_p }}
+            <button type="submit" class="btn btn-brand btn-lg btn-block">Enviar mensaje</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

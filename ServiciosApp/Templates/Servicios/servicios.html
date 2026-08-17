@@ -1,24 +1,35 @@
 {% extends 'Base.html' %}
-
-{% load static %}
-
-{% block content%}
-	{% for servicio in servicios %}
-	<section class="page-section clearfix">
-    <div class="container">
-      <div class="intro" >
-        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{servicio.imagen.url}}" alt="" style="width: 50%;">
-        <div class="intro-text left-0 text-center bg-faded p-5 rounded" style="background-color: #1c194d;">
-          <h2 class="section-heading mb-4" style="color: white;" >
-            <span class="section-heading-lower">{{servicio.titulo}}</span>
-            <span class="section-heading-upper">{{servicio.contenido}}</span>
-          </h2>
-         
-        </div>
-      </div>
+{% block title %}Servicios | Gestión de Pedidos{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-heading">
+      <span class="eyebrow">SERVICIOS</span>
+      <h1>Soluciones presentadas con claridad</h1>
+      <p>Conoce cada servicio en una interfaz uniforme, visual y fácil de recorrer.</p>
     </div>
-  </section>
-	{% endfor %}
-
-
+  </div>
+</section>
+<section class="collection-grid">
+  <div class="container">
+    <div class="row">
+      {% for servicio in servicios %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="service-card">
+          <div class="service-media">
+            {% if servicio.imagen %}<img src="{{ servicio.imagen.url }}" alt="{{ servicio.titulo }}" loading="lazy">{% endif %}
+            <span class="media-badge">Servicio</span>
+          </div>
+          <div class="service-body">
+            <h2 class="service-title">{{ servicio.titulo }}</h2>
+            <p>{{ servicio.contenido }}</p>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+      <div class="col-12"><div class="empty-state"><h3>No hay servicios publicados</h3><p>Los servicios aparecerán aquí cuando estén disponibles.</p></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endblock %}
