@@ -1,79 +1,74 @@
 {% extends 'Base.html' %}
 {% load static %}
-{% block title %}Inicio | Gestión de Pedidos{% endblock %}
+{% block title %}Café Bruma · Café de especialidad{% endblock %}
 {% block content %}
-<section class="home-hero">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 hero-copy">
-        <span class="eyebrow">CATÁLOGO · SERVICIOS · SOPORTE</span>
-        <h1>Todo lo que necesitas, <span>sin vueltas.</span></h1>
-        <p>Explora el catálogo, conoce nuestros servicios y encuentra la información que necesitas desde una experiencia más rápida y clara.</p>
-        <div class="hero-actions">
-          <a href="{% url 'tienda' %}" class="btn btn-brand btn-lg">Explorar tienda</a>
-          <a href="{% url 'servicios' %}" class="btn btn-ghost btn-lg">Ver servicios</a>
-        </div>
-        <div class="hero-meta">
-          <div><strong>01</strong><span>Catálogo visual</span></div>
-          <div><strong>02</strong><span>Compra simple</span></div>
-          <div><strong>03</strong><span>Contacto directo</span></div>
-        </div>
+<section class="hero-cafe">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Café de especialidad · hecho con calma</span>
+      <h1>Tu pausa favorita empieza con una buena taza.</h1>
+      <p>Granos seleccionados, recetas honestas y un espacio cálido donde el tiempo se siente un poco más lento.</p>
+      <div class="hero-actions">
+        <a class="btn-cafe btn-cafe-primary" href="{% url 'tienda' %}">Ver la carta</a>
+        <a class="btn-cafe btn-cafe-ghost" href="{% url 'contacto' %}">Visítanos</a>
       </div>
-      <div class="col-lg-6 mt-5 mt-lg-0">
-        <div class="hero-visual">
-          <div class="hero-glow"></div>
-          <img src="{% static 'MiTiendaApp/img/principal.jpg' %}" alt="Vista principal de Gestión de Pedidos" class="hero-image">
-          <div class="floating-card floating-card-top"><span>●</span> Navegación renovada</div>
-          <div class="floating-card floating-card-bottom"><strong>Todo en un lugar</strong><small>Tienda · Blog · Contacto</small></div>
-        </div>
+      <div class="hero-meta">
+        <div><strong>100%</strong><span>café seleccionado</span></div>
+        <div><strong>Diario</strong><span>repostería fresca</span></div>
+        <div><strong>Sin prisa</strong><span>un espacio para ti</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-image-wrap">
+        <img src="{% static 'MiTiendaApp/img/cafe-interior.webp' %}" alt="Interior cálido y minimalista de una cafetería de especialidad">
+      </div>
+      <div class="floating-card">
+        <span class="floating-dot"></span>
+        <div><strong>Bruma de la casa</strong><small>espresso · leche · caramelo natural</small></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section-block">
-  <div class="container">
-    <div class="section-heading-modern text-center">
-      <span class="eyebrow">UNA EXPERIENCIA MÁS CLARA</span>
-      <h2>Encuentra lo importante más rápido</h2>
-      <p>Menos distracciones, mejor jerarquía visual y accesos directos a las áreas principales.</p>
+<section class="section-space story-section">
+  <div class="container split-story">
+    <div class="story-image">
+      <img src="{% static 'MiTiendaApp/img/cafe-latte-croissant.jpg' %}" alt="Latte con arte y croissant en una mesa de cafetería">
     </div>
-    <div class="row feature-row">
-      <div class="col-md-4 mb-4">
-        <article class="feature-card h-100">
-          <span class="feature-icon">01</span>
-          <h3>Catálogo claro</h3>
-          <p>Productos presentados de forma limpia, con precio y acceso directo al carrito.</p>
-        </article>
-      </div>
-      <div class="col-md-4 mb-4">
-        <article class="feature-card h-100">
-          <span class="feature-icon">02</span>
-          <h3>Servicios visibles</h3>
-          <p>Conoce cada servicio con una presentación consistente y fácil de recorrer.</p>
-        </article>
-      </div>
-      <div class="col-md-4 mb-4">
-        <article class="feature-card h-100">
-          <span class="feature-icon">03</span>
-          <h3>Contacto directo</h3>
-          <p>Un formulario sencillo para que puedas comunicarte sin perder tiempo.</p>
-        </article>
+    <div class="story-copy">
+      <span class="eyebrow">Lo esencial, bien hecho</span>
+      <h2>Café, pan y conversación.</h2>
+      <p>Creemos en una carta corta, ingredientes que hablan por sí solos y preparaciones cuidadas. Desde el primer espresso de la mañana hasta una tarde de lectura, cada detalle está pensado para sentirse sencillo y especial.</p>
+      <div class="mini-features">
+        <article><span>01</span><div><strong>Grano</strong><p>Selecciones de temporada y perfiles equilibrados.</p></div></article>
+        <article><span>02</span><div><strong>Barra</strong><p>Espresso, filtrados y bebidas preparadas al momento.</p></div></article>
+        <article><span>03</span><div><strong>Horno</strong><p>Repostería y bocados para acompañar tu taza.</p></div></article>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section-block pt-0">
+<section class="section-space section-tint">
   <div class="container">
-    <div class="cta-panel">
-      <div>
-        <span class="eyebrow eyebrow-light">¿TIENES ALGUNA DUDA?</span>
-        <h2>Estamos a un mensaje de distancia.</h2>
-        <p>Cuéntanos qué necesitas y usa el formulario de contacto para comunicarte con nosotros.</p>
-      </div>
-      <a href="{% url 'contacto' %}" class="btn btn-light btn-lg">Ir a contacto</a>
+    <div class="section-heading-cafe">
+      <div><span class="eyebrow">El ritual Bruma</span><h2>Una cafetería para volver.</h2></div>
+      <p>Sin ruido visual, sin complicaciones. Solo café bien preparado, hospitalidad y un lugar que se siente tuyo.</p>
     </div>
+    <div class="value-grid">
+      <article class="value-card"><span class="value-number">01</span><h3>Origen</h3><p>Elegimos cafés con trazabilidad y personalidad para que cada taza tenga algo que contar.</p></article>
+      <article class="value-card"><span class="value-number">02</span><h3>Precisión</h3><p>Molemos, pesamos y ajustamos cada preparación para lograr una experiencia consistente.</p></article>
+      <article class="value-card"><span class="value-number">03</span><h3>Calma</h3><p>Diseñamos un espacio cálido para una pausa, una charla o una mañana de trabajo.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="container final-cta">
+    <span class="eyebrow eyebrow-light">Hoy se antoja café</span>
+    <h2>Encuentra tu próxima taza favorita.</h2>
+    <p>Explora nuestra carta y descubre lo que estamos preparando esta temporada.</p>
+    <a class="btn-cafe btn-cafe-light" href="{% url 'tienda' %}">Explorar la carta</a>
   </div>
 </section>
 {% endblock %}
