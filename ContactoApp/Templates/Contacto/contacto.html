@@ -1,7 +1,18 @@
 {% extends 'Base.html' %}
 {% load static %}
-{% block content%}
-<div>
+{% block title %}Contacto · Café Bruma{% endblock %}
+{% block content %}
+<section class="contact-section section-space">
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <span class="eyebrow">Hablemos</span>
+      <h1>Siempre hay lugar para otra conversación.</h1>
+      <p>¿Quieres visitarnos, organizar algo especial o simplemente preguntar por nuestro café? Escríbenos y te responderemos lo antes posible.</p>
+      <div class="contact-details">
+        <div><span>Horario</span><strong>Lun — Sáb · 7:30 — 20:00<br>Dom · 8:00 — 18:00</strong></div>
+        <div><span>Ambiente</span><strong>Café · repostería · wifi · buena música</strong></div>
+      </div>
+    </div>
 
 	{% if error_message %}
     		<p>Error al enviar correo: {{ error_message }}</p>

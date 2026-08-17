@@ -1,12 +1,15 @@
 def importe_total_carro(request):
-    total=0
-    #if request.user.is_authenticated:
-    for key, value in request.session["carro"].items():
-    	total=total+float(value["precio"])
+    total = 0
+    cantidad = 0
+    carro = request.session.get("carro", {})
 
-    '''else:
-       total="Debes hacer login"
-   '''
-        
-    return {"importe_total_carro":total}
-    
+    for value in carro.values():
+        precio = float(value.get("precio", 0))
+        unidades = int(value.get("cantidad", 0))
+        total += precio * unidades
+        cantidad += unidades
+
+    return {
+        "importe_total_carro": total,
+        "cantidad_total_carro": cantidad,
+    }
