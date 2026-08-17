@@ -1,50 +1,105 @@
 class Carro:
+    SESSION_KEY = "carro"
+    TOTAL_KEY = "carro_total_importe"
+    COUNT_KEY = "carro_total_cantidad"
+
     def __init__(self, request):
         self.request = request
         self.session = request.session
-        self.carro = self.session.get("carro", {})
-        if "carro" not in self.session:
-            self.session["carro"] = self.carro
+        carro = self.session.get(self.SESSION_KEY, {})
 
-    def agregar(self, producto):
-        producto_id = str(producto.id)
-        if producto_id not in self.carro:
-            self.carro[producto_id] = {
+        # Django serializa las claves de sesión como texto. Las normalizamos para
+        # evitar que un producto aparezca dos veces por usar 1 y "1".
+        self.carro = {str(key): value for key, value in carro.items()}
+        self._sincronizar_resumen()
+
+    def agregar(self, producto, cantidad=1):
+        key = str(producto.id)
+        cantidad = max(1, int(cantidad))
+
+        if key not in self.carro:
+            imagen = ""
+            if getattr(producto, "imagen", None):
+                try:
+                    imagen = producto.imagen.url
+                except ValueError:
+                    imagen = ""
+
+            self.carro[key] = {
                 "producto_id": producto.id,
                 "nombre": producto.nombre,
-                "precio": producto.precio,
-                "cantidad": 1,
-                "imagen": producto.imagen.url if producto.imagen else "",
+                "precio": float(producto.precio),
+                "cantidad": cantidad,
+                "imagen": imagen,
             }
         else:
-            self.carro[producto_id]["cantidad"] += 1
+            self.carro[key]["cantidad"] = int(self.carro[key].get("cantidad", 0)) + cantidad
+            self.carro[key]["nombre"] = producto.nombre
+            self.carro[key]["precio"] = float(producto.precio)
+            if getattr(producto, "imagen", None):
+                try:
+                    self.carro[key]["imagen"] = producto.imagen.url
+                except ValueError:
+                    pass
+
         self.guardar_carro()
-
-    def guardar_carro(self):
-        self.session["carro"] = self.carro
-        self.session.modified = True
-
-    def eliminar(self, producto):
-        producto_id = str(producto.id)
-        if producto_id in self.carro:
-            del self.carro[producto_id]
-            self.guardar_carro()
 
     def restar(self, producto):
-        producto_id = str(producto.id)
-        if producto_id not in self.carro:
+        key = str(producto.id)
+        if key not in self.carro:
             return
-        if self.carro[producto_id]["cantidad"] > 1:
-            self.carro[producto_id]["cantidad"] -= 1
+
+        nueva_cantidad = int(self.carro[key].get("cantidad", 1)) - 1
+        if nueva_cantidad <= 0:
+            del self.carro[key]
         else:
-            del self.carro[producto_id]
+            self.carro[key]["cantidad"] = nueva_cantidad
+
         self.guardar_carro()
 
-    # Alias para conservar compatibilidad con cualquier llamada antigua.
+    # Compatibilidad con el nombre anterior del método.
     def restar_prod(self, producto):
         self.restar(producto)
 
+    def eliminar(self, producto):
+        key = str(producto.id)
+        if key in self.carro:
+            del self.carro[key]
+            self.guardar_carro()
+
     def limpiar_carro(self):
-        self.session["carro"] = {}
+        self.carro = {}
+        self.guardar_carro()
+
+    def guardar_carro(self):
+        self.session[self.SESSION_KEY] = self.carro
+        self._sincronizar_resumen()
         self.session.modified = True
-        self.carro = self.session["carro"]
+
+    def obtener_items(self):
+        items = []
+        for item in self.carro.values():
+            cantidad = int(item.get("cantidad", 0))
+            precio = float(item.get("precio", 0))
+            item_render = dict(item)
+            item_render["cantidad"] = cantidad
+            item_render["precio"] = precio
+            item_render["subtotal"] = round(precio * cantidad, 2)
+            items.append(item_render)
+        return items
+
+    def total(self):
+        return round(
+            sum(float(item.get("precio", 0)) * int(item.get("cantidad", 0)) for item in self.carro.values()),
+            2,
+        )
+
+    def total_cantidad(self):
+        return sum(int(item.get("cantidad", 0)) for item in self.carro.values())
+
+    def _sincronizar_resumen(self):
+        # Guardamos el resumen en sesión para que Base.html pueda mostrarlo en
+        # cualquier página sin tocar settings.py ni añadir context processors.
+        self.session[self.SESSION_KEY] = self.carro
+        self.session[self.TOTAL_KEY] = self.total()
+        self.session[self.COUNT_KEY] = self.total_cantidad()
