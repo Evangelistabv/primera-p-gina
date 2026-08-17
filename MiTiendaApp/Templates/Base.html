@@ -55,9 +55,10 @@
           <a class="pill-action d-none d-lg-inline-flex" href="{% url 'registro' %}">Crear cuenta</a>
         {% endif %}
 
-        <a class="cart-chip" href="{% url 'tienda' %}" aria-label="Ver carta y carrito">
+        <a class="cart-chip" href="{% url 'tienda' %}#carrito" aria-label="Abrir carrito">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l1.7 9.2a2 2 0 0 0 2 1.6h6.9a2 2 0 0 0 2-1.6L20 8H7.1M10 20h.01M17 20h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>${{ importe_total_carro|default:0|floatformat:2 }}</span>
+          <span class="cart-chip-count">{{ request.session.carro_total_cantidad|default:0 }}</span>
+          <span class="cart-chip-total">${{ request.session.carro_total_importe|default:0|floatformat:2 }}</span>
         </a>
       </div>
     </div>

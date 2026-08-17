@@ -6,28 +6,42 @@
   <div class="container page-hero-inner">
     <div>
       <span class="eyebrow">Nuestra carta</span>
-      <h1>Algo rico para cada momento.</h1>
+      <h1>Café, pan y una pausa bien hecha.</h1>
     </div>
-    <p>Café, bebidas y productos preparados con el mismo cuidado. Agrega tus favoritos al carrito sin cambiar la experiencia que ya funciona en tu sitio.</p>
+    <p>Elige tus favoritos, ajusta cantidades desde el carrito y revisa el total de tu pedido antes de continuar.</p>
   </div>
 </section>
 
-<section class="section-space products-section">
+<section class="section-space products-section" id="carta">
   <div class="container">
+    <div class="section-heading-cafe menu-heading">
+      <div>
+        <span class="eyebrow">Selección Bruma</span>
+        <h2>Hecho para acompañar tu día.</h2>
+      </div>
+      <p>Espresso, bebidas con leche, pan recién horneado y café de especialidad para llevar a casa.</p>
+    </div>
+
     <div class="product-grid">
       {% for producto in productos %}
       <article class="product-card">
         <div class="product-image-wrap">
-          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" loading="lazy">
-          <span class="product-badge">Bruma</span>
+          {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'MiTiendaApp/img/cafe-latte-croissant.jpg' %}" alt="{{ producto.nombre }}" loading="lazy">
+          {% endif %}
+          <span class="product-badge">Café Bruma</span>
         </div>
         <div class="product-body">
           <div class="product-title-row">
             <h2>{{ producto.nombre }}</h2>
-            <span class="product-price">${{ producto.precio }}</span>
+            <span class="product-price">${{ producto.precio|floatformat:2 }}</span>
           </div>
           <p>Preparado o seleccionado con cuidado para acompañar tu momento de café.</p>
-          <a href="{% url 'agregar' producto.id %}" class="btn-cafe btn-cafe-primary btn-full">Agregar al carrito</a>
+          <a href="{% url 'agregar' producto.id %}" class="btn-cafe btn-cafe-primary btn-full">
+            Agregar al carrito
+          </a>
         </div>
       </article>
       {% empty %}
@@ -38,10 +52,79 @@
       </div>
       {% endfor %}
     </div>
+  </div>
+</section>
 
-    <div class="cart-summary-strip">
-      <div><span class="eyebrow">Tu selección</span><strong>Total actual: ${{ importe_total_carro|default:0|floatformat:2 }}</strong></div>
-      <a href="{% url 'limpiar' %}" class="text-action">Vaciar carrito</a>
+<section class="cart-section" id="carrito">
+  <div class="container">
+    <div class="cart-panel">
+      <div class="cart-panel-head">
+        <div>
+          <span class="eyebrow">Tu pedido</span>
+          <h2>Carrito</h2>
+          <p>{{ cantidad_total_carro|default:0 }} producto{{ cantidad_total_carro|pluralize }} en tu selección.</p>
+        </div>
+        {% if carro_items %}
+          <a href="{% url 'limpiar' %}" class="cart-clear">Vaciar carrito</a>
+        {% endif %}
+      </div>
+
+      {% if carro_items %}
+      <div class="cart-items">
+        {% for item in carro_items %}
+        <article class="cart-item">
+          <div class="cart-item-media">
+            {% if item.imagen %}
+              <img src="{{ item.imagen }}" alt="{{ item.nombre }}">
+            {% else %}
+              <img src="{% static 'MiTiendaApp/img/cafe-latte-croissant.jpg' %}" alt="{{ item.nombre }}">
+            {% endif %}
+          </div>
+
+          <div class="cart-item-info">
+            <span class="cart-item-kicker">Café Bruma</span>
+            <h3>{{ item.nombre }}</h3>
+            <span class="cart-item-price">${{ item.precio|floatformat:2 }} c/u</span>
+          </div>
+
+          <div class="cart-qty" aria-label="Cantidad de {{ item.nombre }}">
+            <a href="{% url 'restar' item.producto_id %}" aria-label="Restar uno">−</a>
+            <strong>{{ item.cantidad }}</strong>
+            <a href="{% url 'agregar' item.producto_id %}" aria-label="Agregar uno">+</a>
+          </div>
+
+          <div class="cart-item-total">
+            <span>Subtotal</span>
+            <strong>${{ item.subtotal|floatformat:2 }}</strong>
+          </div>
+
+          <a href="{% url 'eliminar' item.producto_id %}" class="cart-remove" aria-label="Eliminar {{ item.nombre }} del carrito">×</a>
+        </article>
+        {% endfor %}
+      </div>
+
+      <div class="cart-total-row">
+        <div>
+          <span class="eyebrow">Total de tu selección</span>
+          <small>Impuestos y entrega, si aplican, se calculan al confirmar.</small>
+        </div>
+        <strong>${{ importe_total_carro|default:0|floatformat:2 }}</strong>
+      </div>
+
+      <div class="cart-actions-row">
+        <a href="#carta" class="btn-cafe btn-cafe-secondary">Seguir viendo la carta</a>
+        <span class="cart-note">Tu selección se conserva mientras mantengas activa la sesión.</span>
+      </div>
+      {% else %}
+      <div class="cart-empty">
+        <div class="cart-empty-icon" aria-hidden="true">☕</div>
+        <div>
+          <h3>Tu carrito está esperando un buen café.</h3>
+          <p>Agrega algo de la carta y aparecerá aquí con sus cantidades y total.</p>
+        </div>
+        <a href="#carta" class="btn-cafe btn-cafe-primary">Ver la carta</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </section>
