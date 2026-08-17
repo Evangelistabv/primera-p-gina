@@ -1,38 +1,40 @@
 {% extends 'Base.html' %}
-
-{% load static %}
-
-{% block content%}
-	{% for post in posts %}
-	<section class="page-section clearfix">
-    <div class="container">
-      <div class="intro">
-        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{post.imagen.url}}" alt="" style="width: 50%;">
-        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
-          <h2 class="section-heading mb-4" >
-            <span class="section-heading-lower">{{post.titulo}}</span>
-            <span class="section-heading-upper">{{post.contenido}}</span>
-          </h2>
-          <div style="text-align: left;">
-          	
-          	Autor:  {{post.autor}}
-
-          </div>
-        </div>
-      </div>
+{% block title %}Categoría | Gestión de Pedidos{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-heading">
+      <span class="eyebrow">BLOG · CATEGORÍA</span>
+      <h1>Publicaciones relacionadas</h1>
+      <p>Contenido filtrado por la categoría seleccionada.</p>
     </div>
-  </section>
-	{% endfor %}
-<section>
-		<div style="width:75%; background-color: yellow;margin: auto">
-			Categorias:
-			{% for post in posts %}
-				{% for categoria in post.categorias.all %}
-				{{categoria.nombre}}
-				{% endfor %}
-			{% endfor %}
-		</div>
-
+  </div>
 </section>
-
+<section class="collection-grid">
+  <div class="container">
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="blog-card">
+          <div class="blog-media">
+            {% if post.imagen %}<img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" loading="lazy">{% endif %}
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta"><span>Por {{ post.autor }}</span></div>
+            <h2 class="blog-title">{{ post.titulo }}</h2>
+            <p>{{ post.contenido|truncatewords:32 }}</p>
+            <div class="category-pills">
+              {% for categoria in post.categorias.all %}
+                <a class="category-pill" href="{% url 'categoria' categoria.id %}">{{ categoria.nombre }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+      <div class="col-12"><div class="empty-state"><h3>No hay publicaciones en esta categoría</h3><p>Prueba con otra categoría desde el blog.</p><a href="{% url 'blog' %}" class="btn btn-brand">Volver al blog</a></div></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 {% endblock %}

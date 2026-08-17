@@ -1,39 +1,40 @@
 {% extends 'Base.html' %}
-
-{% load static %}
-
-{% block content%}
-	{% for post in posts %}
-	<section class="page-section clearfix">
-    <div class="container">
-      <div class="intro">
-        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{{post.imagen.url}}" alt="" style="width: 50%;">
-        <div class="intro-text left-0 text-center bg-faded p-5 rounded" style="background-color: #1c194d;">
-          <h2 class="section-heading mb-4" style = "color : white;" >
-            <span class="section-heading-lower">{{post.titulo}}</span>
-            <span class="section-heading-upper">{{post.contenido}}</span>
-          </h2>
-          <div style="text-align: left; color: white;">
-          	
-          	Autor:  {{post.autor}}
-
-          </div>
-        </div>
-      </div>
+{% block title %}Blog | Gestión de Pedidos{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-heading">
+      <span class="eyebrow">BLOG</span>
+      <h1>Ideas, novedades y contenido</h1>
+      <p>Publicaciones organizadas para que la lectura y la navegación por categorías sean más sencillas.</p>
     </div>
-  </section>
-	{% endfor %}
-<section>
-		<div style="width:75%; background-color: #529b14; color: #2d3136; margin: auto">
-      Categorias:
-        {% for post in posts %}
-          {% for categoria in post.categorias.all %}
-              <a href="{% url 'categoria' categoria.id %}" style="color: white;">{{categoria.nombre}}</a> &nbsp;&nbsp;&nbsp;
-          {% endfor %}
+  </div>
+</section>
+<section class="collection-grid">
+  <div class="container">
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="blog-card">
+          <div class="blog-media">
+            {% if post.imagen %}<img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" loading="lazy">{% endif %}
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta"><span>Por {{ post.autor }}</span></div>
+            <h2 class="blog-title">{{ post.titulo }}</h2>
+            <p>{{ post.contenido|truncatewords:32 }}</p>
+            <div class="category-pills">
+              {% for categoria in post.categorias.all %}
+                <a class="category-pill" href="{% url 'categoria' categoria.id %}">{{ categoria.nombre }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+      <div class="col-12"><div class="empty-state"><h3>No hay publicaciones todavía</h3><p>Vuelve pronto para consultar nuevo contenido.</p></div></div>
       {% endfor %}
     </div>
-    
-
+  </div>
 </section>
-
 {% endblock %}

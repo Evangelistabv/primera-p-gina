@@ -1,27 +1,45 @@
 {% extends 'Base.html' %}
+{% block title %}Tienda | Gestión de Pedidos{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="page-heading">
+      <span class="eyebrow">TIENDA</span>
+      <h1>Explora nuestro catálogo</h1>
+      <p>Una vista más limpia para comparar productos y agregarlos al carrito con menos pasos.</p>
+    </div>
+  </div>
+</section>
 
-{% load static %}
-
-{% block content%}
-<div class="container">
-	<div class="row">
-		{% for producto in productos %}
-			<div class="col-md-3">
-			<div class="card" style="width: 100%; margin: 5px 5px; background-color: #60625a; ">
-					<img src="{{producto.imagen.url}}" class="card-img-top">
-					
-					<div class="card-body" style="text-align: center;color: white;">
-						<h6 class="card-title"> {{producto.nombre}}</h6>
-						<p class="card-text">{{producto.precio}}</p>
-					</div>
-					<div class="card-footer text-center" style="background-color: #529b14;">
-						<a href="{% url 'agregar' producto.id %}" class="btn btn-success" style="background-color: #529b14;">Agregar al carro</a>
-					</div>
-
-			</div>		
-			</div>
-		{% endfor %}
-	</div>
-
-</div>
-{% endblock%}
+<section class="collection-grid">
+  <div class="container">
+    <div class="row">
+      {% for producto in productos %}
+      <div class="col-sm-6 col-lg-4 col-xl-3 mb-4">
+        <article class="product-card">
+          <div class="product-media">
+            {% if producto.imagen %}
+              <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" loading="lazy">
+            {% endif %}
+            {% if producto.disponibilidad %}<span class="media-badge">Disponible</span>{% endif %}
+          </div>
+          <div class="product-body">
+            <span class="product-category">{{ producto.categoria }}</span>
+            <h2 class="product-title">{{ producto.nombre }}</h2>
+            <p class="product-price">{{ producto.precio }}</p>
+            <div class="product-footer">
+              <span class="product-category">Precio</span>
+              <a href="{% url 'agregar' producto.id %}" class="btn btn-brand btn-sm" aria-label="Agregar {{ producto.nombre }} al carrito">Agregar +</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="empty-state"><h3>No hay productos disponibles</h3><p>Cuando haya productos cargados aparecerán aquí.</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
