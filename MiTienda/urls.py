@@ -19,7 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('servicios/',include('ServiciosApp.urls')),
     path('blog/',include('BlogApp.urls')),
     path('contacto/',include('ContactoApp.urls')),
@@ -27,4 +26,8 @@ urlpatterns = [
     path('',include('MiTiendaApp.urls')),
     
 ]
+if os.environ.get('ENABLE_ADMIN', 'False').lower() == 'true':
+    urlpatterns.append(
+        path('admin/', admin.site.urls)
+    )
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
