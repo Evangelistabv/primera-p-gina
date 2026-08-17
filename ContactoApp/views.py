@@ -28,7 +28,7 @@ Mensaje:
                 subject=f"Nuevo mensaje de {nombre}",
                 message=mensaje,
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=["TU_CORREO@gmail.com"],
+                recipient_list=["danielluffy10@gmail.com"],
                 fail_silently=False,
             )
 
