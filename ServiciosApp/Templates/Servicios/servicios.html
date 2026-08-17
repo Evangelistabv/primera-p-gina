@@ -1,35 +1,29 @@
 {% extends 'Base.html' %}
-{% block title %}Servicios | Gestión de Pedidos{% endblock %}
+{% load static %}
+{% block title %}Experiencias · Café Bruma{% endblock %}
 {% block content %}
-<section class="page-hero">
-  <div class="container">
-    <div class="page-heading">
-      <span class="eyebrow">SERVICIOS</span>
-      <h1>Soluciones presentadas con claridad</h1>
-      <p>Conoce cada servicio en una interfaz uniforme, visual y fácil de recorrer.</p>
-    </div>
+<section class="page-hero compact-hero">
+  <div class="container page-hero-inner">
+    <div><span class="eyebrow">Más que una taza</span><h1>Experiencias alrededor del café.</h1></div>
+    <p>Conoce lo que hace especial cada visita: preparación cuidadosa, hospitalidad y momentos pensados para disfrutarse sin prisa.</p>
   </div>
 </section>
-<section class="collection-grid">
+
+<section class="section-space service-list">
   <div class="container">
-    <div class="row">
-      {% for servicio in servicios %}
-      <div class="col-md-6 col-lg-4 mb-4">
-        <article class="service-card">
-          <div class="service-media">
-            {% if servicio.imagen %}<img src="{{ servicio.imagen.url }}" alt="{{ servicio.titulo }}" loading="lazy">{% endif %}
-            <span class="media-badge">Servicio</span>
-          </div>
-          <div class="service-body">
-            <h2 class="service-title">{{ servicio.titulo }}</h2>
-            <p>{{ servicio.contenido }}</p>
-          </div>
-        </article>
+    {% for servicio in servicios %}
+    <article class="service-card {% cycle '' 'service-card-reverse' %}">
+      <div class="service-image"><img src="{{ servicio.imagen.url }}" alt="{{ servicio.titulo }}" loading="lazy"></div>
+      <div class="service-copy">
+        <span class="eyebrow">Experiencia Bruma</span>
+        <h2>{{ servicio.titulo }}</h2>
+        <p>{{ servicio.contenido }}</p>
+        <a href="{% url 'contacto' %}" class="inline-link">Conocer más <span>→</span></a>
       </div>
-      {% empty %}
-      <div class="col-12"><div class="empty-state"><h3>No hay servicios publicados</h3><p>Los servicios aparecerán aquí cuando estén disponibles.</p></div></div>
-      {% endfor %}
-    </div>
+    </article>
+    {% empty %}
+    <div class="empty-state"><span class="eyebrow">Próximamente</span><h2>Nuevas experiencias están por llegar.</h2><p>Estamos preparando algo especial alrededor del café.</p></div>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}
