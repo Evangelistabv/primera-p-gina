@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#4a2c20">
+  <title>{% block title %}Café Bruma{% endblock %}</title>
+  <meta name="description" content="Café Bruma: café de especialidad, repostería artesanal y momentos para disfrutar sin prisa.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'MiTiendaApp/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'MiTiendaApp/css/gestion.css' %}" rel="stylesheet">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container cafe-nav-wrap">
+      <a class="cafe-brand" href="{% url 'Home' %}" aria-label="Café Bruma - inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img">
+            <path d="M11 13h18v8.5A8.5 8.5 0 0 1 20.5 30h-1A8.5 8.5 0 0 1 11 21.5V13Z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M29 16h2.5a4 4 0 0 1 0 8H29" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M15 8c0 2 2 2 2 4M21 8c0 2 2 2 2 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Café Bruma</strong>
+          <small>specialty coffee</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNavMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="cafe-nav" id="mainNavMenu" aria-label="Navegación principal">
+        <a class="{% if request.path == '/' %}is-active{% endif %}" href="{% url 'Home' %}">Inicio</a>
+        <a class="{% if request.path == '/servicios' or request.path == '/servicios/' %}is-active{% endif %}" href="{% url 'servicios' %}">Experiencias</a>
+        <a class="{% if request.path == '/tienda' or request.path == '/tienda/' %}is-active{% endif %}" href="{% url 'tienda' %}">Carta</a>
+        <a class="{% if request.path == '/blog' or request.path == '/blog/' %}is-active{% endif %}" href="{% url 'blog' %}">Historias</a>
+        <a class="{% if request.path == '/contacto' or request.path == '/contacto/' %}is-active{% endif %}" href="{% url 'contacto' %}">Contacto</a>
+      </nav>
+
+      <div class="nav-actions">
+        {% if user.is_authenticated %}
+          <div class="user-menu">
+            <span class="user-greeting">Hola, {{ user.username }}</span>
+            <a class="text-action" href="{% url 'cerrar_sesion' %}">Salir</a>
+          </div>
+        {% else %}
+          <a class="text-action d-none d-lg-inline-flex" href="{% url 'logear' %}">Ingresar</a>
+          <a class="pill-action d-none d-lg-inline-flex" href="{% url 'registro' %}">Crear cuenta</a>
+        {% endif %}
+
+        <a class="cart-chip" href="{% url 'tienda' %}" aria-label="Ver carta y carrito">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l1.7 9.2a2 2 0 0 0 2 1.6h6.9a2 2 0 0 0 2-1.6L20 8H7.1M10 20h.01M17 20h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>${{ importe_total_carro|default:0|floatformat:2 }}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="footer-brand" href="{% url 'Home' %}">Café Bruma</a>
+        <p>Café de especialidad, repostería artesanal y una pausa bien hecha.</p>
+      </div>
+      <div>
+        <span class="footer-label">Explora</span>
+        <a href="{% url 'tienda' %}">Nuestra carta</a>
+        <a href="{% url 'servicios' %}">Experiencias</a>
+        <a href="{% url 'blog' %}">Historias</a>
+      </div>
+      <div>
+        <span class="footer-label">Visítanos</span>
+        <p>Lun — Sáb · 7:30 — 20:00<br>Dom · 8:00 — 18:00</p>
+        <a href="{% url 'contacto' %}">Escríbenos</a>
+      </div>
+      <div class="footer-note">
+        <span class="footer-label">Un café, sin prisa.</span>
+        <p>Tu rincón para trabajar, conversar o simplemente disfrutar.</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© {% now "Y" %} Café Bruma</span>
+      <span>Hecho con café y calma.</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const menu = document.querySelector('.cafe-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        const open = menu.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

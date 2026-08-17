@@ -1,0 +1,74 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block title %}Café Bruma · Café de especialidad{% endblock %}
+{% block content %}
+<section class="hero-cafe">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Café de especialidad · hecho con calma</span>
+      <h1>Tu pausa favorita empieza con una buena taza.</h1>
+      <p>Granos seleccionados, recetas honestas y un espacio cálido donde el tiempo se siente un poco más lento.</p>
+      <div class="hero-actions">
+        <a class="btn-cafe btn-cafe-primary" href="{% url 'tienda' %}">Ver la carta</a>
+        <a class="btn-cafe btn-cafe-ghost" href="{% url 'contacto' %}">Visítanos</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>100%</strong><span>café seleccionado</span></div>
+        <div><strong>Diario</strong><span>repostería fresca</span></div>
+        <div><strong>Sin prisa</strong><span>un espacio para ti</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-image-wrap">
+        <img src="{% static 'MiTiendaApp/img/cafe-interior.webp' %}" alt="Interior cálido y minimalista de una cafetería de especialidad">
+      </div>
+      <div class="floating-card">
+        <span class="floating-dot"></span>
+        <div><strong>Bruma de la casa</strong><small>espresso · leche · caramelo natural</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-space story-section">
+  <div class="container split-story">
+    <div class="story-image">
+      <img src="{% static 'MiTiendaApp/img/cafe-latte-croissant.jpg' %}" alt="Latte con arte y croissant en una mesa de cafetería">
+    </div>
+    <div class="story-copy">
+      <span class="eyebrow">Lo esencial, bien hecho</span>
+      <h2>Café, pan y conversación.</h2>
+      <p>Creemos en una carta corta, ingredientes que hablan por sí solos y preparaciones cuidadas. Desde el primer espresso de la mañana hasta una tarde de lectura, cada detalle está pensado para sentirse sencillo y especial.</p>
+      <div class="mini-features">
+        <article><span>01</span><div><strong>Grano</strong><p>Selecciones de temporada y perfiles equilibrados.</p></div></article>
+        <article><span>02</span><div><strong>Barra</strong><p>Espresso, filtrados y bebidas preparadas al momento.</p></div></article>
+        <article><span>03</span><div><strong>Horno</strong><p>Repostería y bocados para acompañar tu taza.</p></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-space section-tint">
+  <div class="container">
+    <div class="section-heading-cafe">
+      <div><span class="eyebrow">El ritual Bruma</span><h2>Una cafetería para volver.</h2></div>
+      <p>Sin ruido visual, sin complicaciones. Solo café bien preparado, hospitalidad y un lugar que se siente tuyo.</p>
+    </div>
+    <div class="value-grid">
+      <article class="value-card"><span class="value-number">01</span><h3>Origen</h3><p>Elegimos cafés con trazabilidad y personalidad para que cada taza tenga algo que contar.</p></article>
+      <article class="value-card"><span class="value-number">02</span><h3>Precisión</h3><p>Molemos, pesamos y ajustamos cada preparación para lograr una experiencia consistente.</p></article>
+      <article class="value-card"><span class="value-number">03</span><h3>Calma</h3><p>Diseñamos un espacio cálido para una pausa, una charla o una mañana de trabajo.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="container final-cta">
+    <span class="eyebrow eyebrow-light">Hoy se antoja café</span>
+    <h2>Encuentra tu próxima taza favorita.</h2>
+    <p>Explora nuestra carta y descubre lo que estamos preparando esta temporada.</p>
+    <a class="btn-cafe btn-cafe-light" href="{% url 'tienda' %}">Explorar la carta</a>
+  </div>
+</section>
+{% endblock %}
