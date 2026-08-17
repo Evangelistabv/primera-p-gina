@@ -1,0 +1,38 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block title %}Historias · Café Bruma{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container page-hero-inner">
+    <div><span class="eyebrow">Historias de café</span><h1>Notas para tomar con calma.</h1></div>
+    <p>Origen, métodos, personas y pequeñas historias detrás de las tazas que nos acompañan todos los días.</p>
+  </div>
+</section>
+
+<section class="section-space">
+  <div class="container blog-grid">
+    {% for post in posts %}
+    <article class="blog-card">
+      <a class="blog-image" href="#">
+        <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" loading="lazy">
+      </a>
+      <div class="blog-copy">
+        <div class="blog-meta">
+          <span>Por {{ post.autor }}</span>
+          {% if post.created %}<span>{{ post.created|date:"d M Y" }}</span>{% endif %}
+        </div>
+        <h2>{{ post.titulo }}</h2>
+        <p>{{ post.contenido|truncatewords:34 }}</p>
+        <div class="post-categories">
+          {% for categoria in post.categorias.all %}
+          <a href="{% url 'categoria' categoria.id %}">{{ categoria.nombre }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </article>
+    {% empty %}
+    <div class="empty-state"><span class="eyebrow">El primer sorbo</span><h2>Pronto habrá historias aquí.</h2><p>Estamos preparando contenido sobre café, métodos y cultura de barra.</p></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

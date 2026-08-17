@@ -1,0 +1,48 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block title %}Carta · Café Bruma{% endblock %}
+{% block content %}
+<section class="page-hero compact-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <span class="eyebrow">Nuestra carta</span>
+      <h1>Algo rico para cada momento.</h1>
+    </div>
+    <p>Café, bebidas y productos preparados con el mismo cuidado. Agrega tus favoritos al carrito sin cambiar la experiencia que ya funciona en tu sitio.</p>
+  </div>
+</section>
+
+<section class="section-space products-section">
+  <div class="container">
+    <div class="product-grid">
+      {% for producto in productos %}
+      <article class="product-card">
+        <div class="product-image-wrap">
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" loading="lazy">
+          <span class="product-badge">Bruma</span>
+        </div>
+        <div class="product-body">
+          <div class="product-title-row">
+            <h2>{{ producto.nombre }}</h2>
+            <span class="product-price">${{ producto.precio }}</span>
+          </div>
+          <p>Preparado o seleccionado con cuidado para acompañar tu momento de café.</p>
+          <a href="{% url 'agregar' producto.id %}" class="btn-cafe btn-cafe-primary btn-full">Agregar al carrito</a>
+        </div>
+      </article>
+      {% empty %}
+      <div class="empty-state">
+        <span class="eyebrow">Muy pronto</span>
+        <h2>Estamos afinando la carta.</h2>
+        <p>Vuelve en un momento para descubrir nuestras selecciones.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="cart-summary-strip">
+      <div><span class="eyebrow">Tu selección</span><strong>Total actual: ${{ importe_total_carro|default:0|floatformat:2 }}</strong></div>
+      <a href="{% url 'limpiar' %}" class="text-action">Vaciar carrito</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

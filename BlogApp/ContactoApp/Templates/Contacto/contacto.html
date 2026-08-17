@@ -1,0 +1,33 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block title %}Contacto · Café Bruma{% endblock %}
+{% block content %}
+<section class="contact-section section-space">
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <span class="eyebrow">Hablemos</span>
+      <h1>Siempre hay lugar para otra conversación.</h1>
+      <p>¿Quieres visitarnos, organizar algo especial o simplemente preguntar por nuestro café? Escríbenos y te responderemos lo antes posible.</p>
+      <div class="contact-details">
+        <div><span>Horario</span><strong>Lun — Sáb · 7:30 — 20:00<br>Dom · 8:00 — 18:00</strong></div>
+        <div><span>Ambiente</span><strong>Café · repostería · wifi · buena música</strong></div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      {% if 'valido' in request.GET %}
+      <div class="form-alert form-alert-success">Gracias. Recibimos tu mensaje correctamente.</div>
+      {% endif %}
+      {% if 'novalido' in request.GET %}
+      <div class="form-alert form-alert-error">No pudimos enviar tu mensaje. Revisa los datos e intenta de nuevo.</div>
+      {% endif %}
+
+      <form action="" method="POST" class="cafe-form">
+        {% csrf_token %}
+        {{ miformulario.as_p }}
+        <button type="submit" class="btn-cafe btn-cafe-primary btn-full">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
